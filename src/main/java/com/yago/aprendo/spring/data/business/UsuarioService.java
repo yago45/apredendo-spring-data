@@ -8,11 +8,15 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
-@RequiredArgsConstructor
+
 
 public class UsuarioService {
 
     private final UsuarioRepository usuarioRepository ;
+
+    public UsuarioService(UsuarioRepository usuarioRepository) {
+        this.usuarioRepository = usuarioRepository;
+    }
 
     public Usuario savaUsuario(Usuario usuario){
         try{
@@ -33,6 +37,6 @@ public class UsuarioService {
          }
         }
     public boolean verificaEmailExistente(String email){
-        return usuarioRepository.sxistsByEmail(email);
+        return usuarioRepository.existsByEmail(email);
     }
 }
