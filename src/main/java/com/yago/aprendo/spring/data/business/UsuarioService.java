@@ -3,6 +3,7 @@ package com.yago.aprendo.spring.data.business;
 
 import com.yago.aprendo.spring.data.infrastructure.entity.Usuario;
 import com.yago.aprendo.spring.data.infrastructure.exceptions.ConflictException;
+import com.yago.aprendo.spring.data.infrastructure.exceptions.ResurceNotFoundException;
 import com.yago.aprendo.spring.data.infrastructure.repository.UsuarioRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -42,4 +43,13 @@ public class UsuarioService {
     public boolean verificaEmailExistente(String email){
         return usuarioRepository.existsByEmail(email);
     }
+   public Usuario buscarUsuarioPorEmail(String email){
+        return usuarioRepository.findByEmail(email).orElseThrow(
+                ( ) -> new ResurceNotFoundException("Email nao encontrado " + email ));
+   }
+
+   public void deletaUsuarioPorEmail(String email){
+    usuarioRepository.deleteByEmail(email);
+   }
+
 }
